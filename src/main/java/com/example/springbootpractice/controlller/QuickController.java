@@ -1,9 +1,9 @@
 package com.example.springbootpractice.controlller;
 
+import com.example.springbootpractice.dto.ItemDto;
+import com.example.springbootpractice.dto.ResponseDto;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
@@ -26,5 +26,13 @@ public class QuickController {
     public String getCompany(@RequestParam("id") String id){
         log.info("id: {}", id);
         return "ok";
+    }
+
+    @PostMapping("/item")
+    public ResponseDto registerItem(@RequestBody ItemDto item){
+        log.info("item: {}", item);
+        ResponseDto responseDto = new ResponseDto();
+        responseDto.setMessage("ok");
+        return responseDto;
     }
 }
