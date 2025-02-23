@@ -2,6 +2,7 @@ package com.example.springbootpractice.controlller;
 
 import com.example.springbootpractice.dto.ItemDto;
 import com.example.springbootpractice.dto.ResponseDto;
+import com.example.springbootpractice.repository.ItemRepository;
 import com.example.springbootpractice.service.QuickService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,20 @@ public class QuickController {
         return "ok";
     }
 
+    @GetMapping("/item")
+    public String getItem(@RequestParam("id") String id) {
+        log.info("id: {}", id);
+
+        ItemDto itemDto = quickService.getItemById(id);
+        // ✅ 응답 처리 추가
+        if (itemDto != null) {
+            return itemDto.getName();
+        } else {
+            return "검색 실패";
+        }
+    }
+
+
     @PostMapping("/item")
     public ResponseDto registerItem(@RequestBody ItemDto item){
         log.info("item: {}", item);
@@ -48,4 +63,6 @@ public class QuickController {
         responseDto.setMessage("fail");
         return responseDto;
     }
+
+
 }
